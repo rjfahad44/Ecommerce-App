@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Ecommerce App - MyTask</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_add_to_cart">Add To Cart</string>
+    <string name="text_go_to_cart">Go To Cart</string>
+    <string name="stock_quantity">Stock Quantity</string>
+    <string name="rating">Rating</string>
+</resources>
