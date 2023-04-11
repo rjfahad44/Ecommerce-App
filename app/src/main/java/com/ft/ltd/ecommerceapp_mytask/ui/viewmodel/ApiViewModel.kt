@@ -2,6 +2,7 @@ package com.ft.ltd.ecommerceapp_mytask.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import com.ft.ltd.ecommerceapp_mytask.data.apis.Response
 import com.ft.ltd.ecommerceapp_mytask.data.model.Categories
 import com.ft.ltd.ecommerceapp_mytask.data.model.ErrorResponse
@@ -43,5 +44,7 @@ class ApiViewModel @Inject constructor(
     fun setCommunicatorData(products: ArrayList<ProductsItem>) = viewModelScope.launch {
         _communicator.emit(products)
     }
+
+    fun productListPagingData() = apiRepository.productListPagingData().cachedIn(viewModelScope)
 
 }
