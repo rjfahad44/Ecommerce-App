@@ -130,8 +130,8 @@ class CartFragment : Fragment() , CartOnClickListeners {
         bookingAlert.setMessage("Your Checkout is completed. \nYour Servicing Date is 11–04–2023\n to 20-04-2023.")
         bookingAlert.setIcon(R.drawable.baseline_add_task_24)
         bookingAlert.setPositiveButton("Ok"){dialog, id ->
-            requireActivity().supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-            findNavController().navigate(R.id.productListFragment)
+            //requireActivity().supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+            findNavController().navigateUp()
         }
 
         val alertDialog = bookingAlert.create()

@@ -14,6 +14,47 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <RelativeLayout
+        android:id="@+id/profileLayout"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customToolbar">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/uploadDp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:scaleType="centerCrop"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="26dp"
+            android:padding="5dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="30dp"
+            android:translationZ="2dp"
+            app:srcCompat="@drawable/baseline_add_circle_outline_24" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardBackgroundColor="@color/white"
+            app:cardUseCompatPadding="true"
+            android:layout_centerInParent="true"
+            app:cardCornerRadius="100dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/profileImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/product_placeholder_img" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </RelativeLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/productCategoriesRv"
         android:layout_width="0dp"
@@ -22,6 +63,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/customToolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/profileLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
