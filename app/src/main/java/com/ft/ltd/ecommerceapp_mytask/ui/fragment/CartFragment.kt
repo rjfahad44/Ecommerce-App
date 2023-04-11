@@ -1,13 +1,16 @@
 package com.ft.ltd.ecommerceapp_mytask.ui.fragment
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ft.ltd.ecommerceapp_mytask.R
 import com.ft.ltd.ecommerceapp_mytask.data.listeners.CartOnClickListeners
@@ -48,9 +51,7 @@ class CartFragment : Fragment() , CartOnClickListeners {
         binding.customToolbar.counter.text = "${GlobalProductCartList.size}"
 
         validationCheck(GlobalProductCartList.isEmpty())
-
-        val price = GlobalProductCartList.sumOf { it.price }
-
+        checkoutCost()
 
         lifecycleScope.launch {
             apiViewModel.communicator.collectLatest {
@@ -64,6 +65,10 @@ class CartFragment : Fragment() , CartOnClickListeners {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = productCartAdapter
             setHasFixedSize(true)
+        }
+
+        binding.checkOutBtn.setOnClickListener {
+            showCheckoutAlertSuccessfully()
         }
 
         productCartAdapter.submitData(GlobalProductCartList)
@@ -87,11 +92,14 @@ class CartFragment : Fragment() , CartOnClickListeners {
 
     override fun productQuantityMinusOnClickListener(position: Int, productsItem: ProductsItem) {
         productCartAdapter.notifyItemChanged(position)
-
+        GlobalProductCartList[position] = productsItem
+        checkoutCost()
     }
 
     override fun productQuantityPlusOnClickListener(position: Int, productsItem: ProductsItem) {
         productCartAdapter.notifyItemChanged(position)
+        GlobalProductCartList[position] = productsItem
+        checkoutCost()
     }
 
     override fun productDeleteOnClickListener(position: Int, productsItem: ProductsItem) {
@@ -99,5 +107,35 @@ class CartFragment : Fragment() , CartOnClickListeners {
         productCartAdapter.notifyItemRemoved(position)
         productCartAdapter.notifyItemChanged(position)
         apiViewModel.setCommunicatorData(GlobalProductCartList)
+        checkoutCost()
+    }
+
+    private fun checkoutCost(){
+        val price = GlobalProductCartList.sumOf { it.price }
+        var shippingCost: Double = 0.0
+        if (price>0){
+            shippingCost = 100.0
+        }else{
+            shippingCost = 0.0
+        }
+        binding.productPriceTv.text = "$ ${String. format("%.1f", price)}"
+        binding.shippingCostTv.text = "$ $shippingCost"
+        binding.totalPriceTv.text = "$ ${String. format("%.1f", price + shippingCost)}"
+    }
+
+    private fun showCheckoutAlertSuccessfully(){
+        val bookingAlert = AlertDialog.Builder(requireContext())
+        bookingAlert.setTitle("Checkout Successfully.")
+
+        bookingAlert.setMessage("Your Checkout is completed. \nYour Servicing Date is 11–04–2023\n to 20-04-2023.")
+        bookingAlert.setIcon(R.drawable.baseline_add_task_24)
+        bookingAlert.setPositiveButton("Ok"){dialog, id ->
+            requireActivity().supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+            findNavController().navigate(R.id.productListFragment)
+        }
+
+        val alertDialog = bookingAlert.create()
+        alertDialog.setCanceledOnTouchOutside(false)
+        alertDialog.show()
     }
 }

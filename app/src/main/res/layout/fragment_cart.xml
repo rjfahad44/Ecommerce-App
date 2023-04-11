@@ -53,7 +53,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/product_price"
+            android:textColor="@color/black"
             android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -61,7 +63,9 @@
             android:id="@+id/productPriceTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="$100.0" />
@@ -71,7 +75,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/shipping_price"
+            android:textColor="@color/black"
             android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_subtotal_label" />
 
@@ -79,7 +85,9 @@
             android:id="@+id/shippingCostTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/productPriceTv"
             tools:text="$100.0" />
@@ -89,7 +97,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/total"
+            android:textColor="@color/black"
             android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_shipping_label" />
 
@@ -97,7 +107,9 @@
             android:id="@+id/totalPriceTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/shippingCostTv"
             tools:text="$100.0" />
