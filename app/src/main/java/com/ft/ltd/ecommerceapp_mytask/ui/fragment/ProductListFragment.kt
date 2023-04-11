@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -11,22 +12,28 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ft.ltd.ecommerceapp_mytask.R
 import com.ft.ltd.ecommerceapp_mytask.data.apis.Status
-import com.ft.ltd.ecommerceapp_mytask.data.model.Products
+import com.ft.ltd.ecommerceapp_mytask.data.listeners.ProductOnClickListeners
 import com.ft.ltd.ecommerceapp_mytask.data.model.ProductsItem
+import com.ft.ltd.ecommerceapp_mytask.databinding.FragmentCartBinding
 import com.ft.ltd.ecommerceapp_mytask.databinding.FragmentProductListBinding
 import com.ft.ltd.ecommerceapp_mytask.ui.adapter.ProductListAdapter
 import com.ft.ltd.ecommerceapp_mytask.ui.viewmodel.ApiViewModel
+import com.ft.ltd.ecommerceapp_mytask.utils.Utils.GlobalProductCartList
 import com.ft.ltd.ecommerceapp_mytask.utils.hideLoader
 import com.ft.ltd.ecommerceapp_mytask.utils.showLoader
 import com.ft.ltd.ecommerceapp_mytask.utils.toast
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ProductListFragment : Fragment() {
+@AndroidEntryPoint
+class ProductListFragment : Fragment(), ProductOnClickListeners {
 
-    lateinit var binding: FragmentProductListBinding
+    private lateinit var binding: FragmentProductListBinding
     private val apiViewModel by activityViewModels<ApiViewModel>()
     private lateinit var productListAdapter: ProductListAdapter
+    private var productCartList = ArrayList<ProductsItem>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,15 +48,31 @@ class ProductListFragment : Fragment() {
         binding.customToolbar.backButton.setOnClickListener { requireActivity().onBackPressedDispatcher.onBackPressed() }
         binding.customToolbar.title.text = "Product List"
 
+        binding.customToolbar.addToCart.isVisible = true
+        binding.customToolbar.counter.isVisible = true
+
+
         apiViewModel.getProducts()
 
-        productListAdapter = ProductListAdapter(::productItemClicked)
+        lifecycleScope.launch {
+            apiViewModel.communicator.collectLatest {
+                binding.customToolbar.counter.isVisible = true
+                binding.customToolbar.counter.text = "${it.size}"
+            }
+        }
+
+        binding.customToolbar.addToCart.setOnClickListener {
+            findNavController().navigate(R.id.cartFragment)
+        }
+
+        productListAdapter = ProductListAdapter(this)
         binding.productListRv.apply {
             layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = productListAdapter
             setHasFixedSize(true)
         }
 
+        getProductList()
     }
 
     private fun getProductList() {
@@ -77,14 +100,21 @@ class ProductListFragment : Fragment() {
         }
     }
 
-    private fun productItemClicked(productsItem: ProductsItem) {
+    override fun productDetailsOnClickListener(productsItem: ProductsItem) {
         val bundle = Bundle()
         bundle.putParcelable("Product", productsItem)
         findNavController().navigate(R.id.action_productListFragment_to_productDetailsFragment, bundle)
     }
 
+
+    override fun addToCartOnClickListener(productsItem: ProductsItem) {
+        productCartList.add(productsItem)
+        apiViewModel.setCommunicatorData(productCartList)
+        GlobalProductCartList = productCartList
+    }
+
     override fun onResume() {
         super.onResume()
-        getProductList()
+        GlobalProductCartList.clear()
     }
 }

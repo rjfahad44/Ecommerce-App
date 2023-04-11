@@ -6,13 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ft.ltd.ecommerceapp_mytask.R
+import com.ft.ltd.ecommerceapp_mytask.data.listeners.ProductOnClickListeners
 import com.ft.ltd.ecommerceapp_mytask.data.model.Categories
 import com.ft.ltd.ecommerceapp_mytask.data.model.Products
 import com.ft.ltd.ecommerceapp_mytask.data.model.ProductsItem
 import com.ft.ltd.ecommerceapp_mytask.databinding.RvItemCategoryBinding
 import com.ft.ltd.ecommerceapp_mytask.databinding.RvItemProductBinding
 
-class ProductListAdapter(private val itemClickListener: (ProductsItem) -> Unit) : RecyclerView.Adapter<ProductListAdapter.ProductCategoriesViewHolder>() {
+class ProductListAdapter(private val productOnClickListeners: ProductOnClickListeners) : RecyclerView.Adapter<ProductListAdapter.ProductCategoriesViewHolder>() {
 
     private var productsList = emptyList<ProductsItem>()
     @SuppressLint("NotifyDataSetChanged")
@@ -27,7 +28,8 @@ class ProductListAdapter(private val itemClickListener: (ProductsItem) -> Unit) 
             Glide.with(ctx).load(item.image).placeholder(R.drawable.product_placeholder_img).centerCrop().into(binding.productImg)
             binding.productPriceTv.text = "$ ${item.price}"
             binding.productRatingBar.rating = item.rating.rate.toFloat()
-            binding.root.setOnClickListener { itemClickListener.invoke(item) }
+            binding.root.setOnClickListener { productOnClickListeners.productDetailsOnClickListener(item) }
+            binding.addToCart.setOnClickListener { productOnClickListeners.addToCartOnClickListener(item) }
         }
     }
 

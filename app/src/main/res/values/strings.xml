@@ -6,4 +6,9 @@
     <string name="text_go_to_cart">Go To Cart</string>
     <string name="stock_quantity">Stock Quantity</string>
     <string name="rating">Rating</string>
+    <string name="text_empty_cart">Empty Cart</string>
+    <string name="product_price">Product price</string>
+    <string name="shipping_price">Shipping price</string>
+    <string name="total">Total</string>
+    <string name="checkout">Checkout</string>
 </resources>

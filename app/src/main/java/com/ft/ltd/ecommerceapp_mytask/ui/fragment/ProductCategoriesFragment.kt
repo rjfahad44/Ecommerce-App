@@ -50,6 +50,8 @@ class ProductCategoriesFragment : Fragment() {
             adapter = productCategoriesAdapter
             setHasFixedSize(true)
         }
+
+        getProductsCategories()
     }
 
     private fun getProductsCategories() {
@@ -79,8 +81,4 @@ class ProductCategoriesFragment : Fragment() {
         findNavController().navigate(R.id.action_homeFragment_to_productListFragment, bundle)
     }
 
-    override fun onResume() {
-        super.onResume()
-        getProductsCategories()
-    }
 }

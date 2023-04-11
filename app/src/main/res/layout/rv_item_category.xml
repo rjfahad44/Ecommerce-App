@@ -1,8 +1,8 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="300dp"
-    app:cardBackgroundColor="@color/white"
+    android:layout_height="250dp"
+    app:cardBackgroundColor="@color/azure"
     app:cardCornerRadius="10dp"
     app:cardElevation="2dp"
     app:cardUseCompatPadding="true"
@@ -19,6 +19,7 @@
             app:cardBackgroundColor="@color/white"
             android:layout_above="@id/productCategoryNameTv"
             android:layout_alignParentTop="true"
+            app:cardUseCompatPadding="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             app:cardCornerRadius="10dp">
@@ -44,7 +45,7 @@
             android:layout_above="@id/productStockTv"
             android:layout_alignParentStart="true"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="15dp"
             android:textStyle="bold"
             android:textSize="18sp" />
 
@@ -57,7 +58,8 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
             android:textSize="14sp" />
 
     </RelativeLayout>

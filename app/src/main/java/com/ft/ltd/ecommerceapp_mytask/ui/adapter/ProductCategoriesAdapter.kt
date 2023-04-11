@@ -31,19 +31,22 @@ class ProductCategoriesAdapter(private val itemClickListener: (String) -> Unit) 
             when(item){
                 "electronics" ->{
                     Glide.with(ctx).load(R.drawable.electronics_category).centerCrop().into(binding.productImg)
+                    binding.productStockTv.text = "Stock in : 6"
                 }
                 "jewelery" ->{
                     Glide.with(ctx).load(R.drawable.jewellery_category).centerCrop().into(binding.productImg)
+                    binding.productStockTv.text = "Stock in : 4"
                 }
                 "men's clothing" ->{
                     Glide.with(ctx).load(R.drawable.men_cloth_category).centerCrop().into(binding.productImg)
+                    binding.productStockTv.text = "Stock in : 4"
                 }
                 "women's clothing" ->{
                     Glide.with(ctx).load(R.drawable.womens_cloth_category).centerCrop().into(binding.productImg)
+                    binding.productStockTv.text = "Stock in : 6"
                 }
             }
             binding.productCategoryNameTv.text = item
-            binding.productStockTv.text = "5"
             binding.root.setOnClickListener { itemClickListener.invoke(item) }
         }
     }
