@@ -18,7 +18,7 @@
                 android:id="@+id/iv_cart_image_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/lightblue"
+                android:background="@color/azure"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -28,7 +28,7 @@
                     android:id="@+id/imgCv"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    app:cardBackgroundColor="@color/white"
+                    app:cardBackgroundColor="@color/azure"
                     app:cardUseCompatPadding="true"
                     app:cardCornerRadius="10dp">
 

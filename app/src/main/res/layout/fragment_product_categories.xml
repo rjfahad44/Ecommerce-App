@@ -16,16 +16,16 @@
 
     <RelativeLayout
         android:id="@+id/profileLayout"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/customToolbar">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/uploadDp"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:scaleType="centerCrop"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="26dp"
@@ -39,10 +39,10 @@
             android:id="@+id/dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:cardBackgroundColor="@color/white"
-            app:cardUseCompatPadding="true"
             android:layout_centerInParent="true"
-            app:cardCornerRadius="100dp">
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="100dp"
+            app:cardUseCompatPadding="true">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/profileImage"
@@ -63,6 +63,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        tools:listitem="@layout/rv_item_category"
         app:layout_constraintTop_toBottomOf="@+id/profileLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
