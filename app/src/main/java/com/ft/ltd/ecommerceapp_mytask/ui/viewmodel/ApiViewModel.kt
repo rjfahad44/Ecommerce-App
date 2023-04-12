@@ -34,7 +34,6 @@ class ApiViewModel @Inject constructor(
     var getProducts: SharedFlow<Response<Products, ErrorResponse>> = _getProducts
 
     fun getProducts() = viewModelScope.launch {
-//        _getProducts.emit(Response.loading(null))
         _getProducts.emit(apiRepository.getProducts())
     }
 
