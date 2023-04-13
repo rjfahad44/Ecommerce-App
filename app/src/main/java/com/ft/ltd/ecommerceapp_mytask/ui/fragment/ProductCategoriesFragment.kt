@@ -55,15 +55,16 @@ class ProductCategoriesFragment : Fragment() {
     private var cameraFilePath: String? = null
     private var cameraFile: String? = null
 
-    private val getDataFroResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+    private val getDataFroResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val selectedFileUri = result.data?.data
-                if (selectedFileUri == null){
+                if (selectedFileUri == null) {
                     cameraFile?.let {
                         "Camera ${it}".log("IMAGE_DATA")
                         binding.profileImage.setImageURI(it.toUri())
                     }
-                }else{
+                } else {
                     binding.profileImage.setImageURI(selectedFileUri)
                 }
                 "${selectedFileUri}".log("IMAGE_DATA")
@@ -81,8 +82,7 @@ class ProductCategoriesFragment : Fragment() {
 
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         binding = FragmentProductCategoriesBinding.inflate(inflater)
         initializes()
@@ -139,21 +139,23 @@ class ProductCategoriesFragment : Fragment() {
     private fun openCamera() {
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         cameraIntent.putExtra("REQUEST_CODE", REQUEST_CODE)
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-            createImageFile()?.let {
-                FileProvider.getUriForFile(requireContext(), BuildConfig.APPLICATION_ID + ".provider",
-                    it
-                )
-            })
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, createImageFile()?.let {
+            FileProvider.getUriForFile(
+                requireContext(), BuildConfig.APPLICATION_ID + ".provider", it
+            )
+        })
         //startActivityForResult(cameraIntent, 1002)
         getDataFroResult.launch(cameraIntent)
     }
+
     @SuppressLint("SimpleDateFormat")
     @Throws(IOException::class)
     private fun createImageFile(): File? {
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         val imageFileName = "JPEG_" + timeStamp + "_"
-        val storageDir: File = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "Camera")
+        val storageDir: File = File(
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "Camera"
+        )
         val image = File.createTempFile(imageFileName, ".jpg", storageDir)
         cameraFilePath = "file://" + image.absolutePath
         cameraFile = image.absolutePath
@@ -183,8 +185,7 @@ class ProductCategoriesFragment : Fragment() {
         cameraLl.setOnClickListener {
             requestCameraPermissionLauncher.launch(
                 arrayOf(
-                    Manifest.permission.CAMERA,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE
                 )
             )
             mDialog.dismiss()
